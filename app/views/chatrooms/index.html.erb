@@ -1,2 +1,7 @@
-<h1>Chatrooms#index</h1>
-<p>Find me in app/views/chatrooms/index.html.erb</p>
+<div class="new_chatroom">
+	<h5> Create New Chatroom</h5>
+	<%= simple_form_for @chatroom do |f| %>
+		<%= f.input :name %>
+	 	<%= f.button :submit %>
+	<% end %>
+</div>
