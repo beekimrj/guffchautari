@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_19_111705) do
+ActiveRecord::Schema.define(version: 2020_05_20_120724) do
 
   create_table "chatroom_users", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "chatroom_id", null: false
@@ -23,8 +23,11 @@ ActiveRecord::Schema.define(version: 2020_05_19_111705) do
 
   create_table "chatrooms", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "name"
+    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "password"
+    t.index ["user_id"], name: "index_chatrooms_on_user_id"
   end
 
   create_table "messages", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
@@ -52,6 +55,7 @@ ActiveRecord::Schema.define(version: 2020_05_19_111705) do
 
   add_foreign_key "chatroom_users", "chatrooms"
   add_foreign_key "chatroom_users", "users"
+  add_foreign_key "chatrooms", "users"
   add_foreign_key "messages", "chatrooms"
   add_foreign_key "messages", "users"
 end
