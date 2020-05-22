@@ -2,6 +2,7 @@
 	<div class="item"> <%= chatroom.name %>
 			<%= link_to("Show", chatroom_path(chatroom)) %>
 			<%= link_to("Delete", chatroom_path(chatroom),method: :delete, data: {confirm: "Are you sure?"}, :class => "btn btn-danger  ") %> 	</div>
-
+		 <%= link_to "Join", chatroom_chatroom_users_path(chatroom) , method: :post %>
+		 <%= link_to "Leave", chatroom_chatroom_users_path(chatroom) , method: :delete %>
 		<%end %>
 <%= render partial: 'chatroom_form' %>

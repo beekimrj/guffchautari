@@ -8,7 +8,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :chatroom_users
-  has_many :chatroom, through: :chatroom_users
+  has_many :chatrooms, through: :chatroom_users
   has_many :messages
 
 	def self.find_for_database_authentication warden_conditions

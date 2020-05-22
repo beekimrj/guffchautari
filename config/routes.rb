@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
-  get 'chatrooms/index'
-	resources :chatrooms
+
+	resources :chatrooms do
+		resource :chatroom_users
+	end
 
   devise_for :users
 

@@ -1,4 +1,7 @@
 class ChatroomsController < ApplicationController
+
+	before_action :authenticate_user!, except: [:index,:show]
+
   def index
 		@chatrooms = Chatroom.all;
 		# @user=current_user;
@@ -10,11 +13,11 @@ class ChatroomsController < ApplicationController
   end
 
   def create
-  	# byebug
   	@chatroom = Chatroom.new(chatroom_params)
   	@chatroom['user_id'] = current_user.id
 
     if(@chatroom.save )
+    	ChatroomUser.where(chatroom_id: @chatroom.id, user_id: current_user.id).first_or_create
       redirect_to chatrooms_path
     else
     	render 'new'
