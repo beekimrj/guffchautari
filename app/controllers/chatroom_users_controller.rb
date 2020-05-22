@@ -4,7 +4,7 @@ class ChatroomUsersController < ApplicationController
 
   def create
   	@chatroom_user = ChatroomUser.where(chatroom_id: @chatroom.id, user_id: current_user.id).first_or_create
-  	redirect_to @chatroom
+  	redirect_to chatrooms_path
   end
 
   def destroy
@@ -15,7 +15,6 @@ class ChatroomUsersController < ApplicationController
   private
 
   def set_chatroom
-  	# byebug
   	@chatroom = Chatroom.find(params[:chatroom_id])
   end
 end

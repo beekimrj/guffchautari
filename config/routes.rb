@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
 
+  get 'messages/create'
 	resources :chatrooms do
 		resource :chatroom_users
+		resources :messages
 	end
 
   devise_for :users

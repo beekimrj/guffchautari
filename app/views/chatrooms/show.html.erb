@@ -1,4 +1,14 @@
-<h4> <%= @chatroom.name %> </h4>
-<h6> <%= @chatroom.password %>
+<p><h4> <%= @chatroom.name %> </h4>
+ id: <%= @chatroom.id%>
+</p>
 
-<%= link_to "Edit", edit_chatroom_path %>
+<div class="message-container">
+	<% @chatroom.messages.each do |message| %>
+		<div class="message-item"><strong><%= message.user.username %>:</strong> <%= message.body %>
+	<%end %>
+ <%= simple_form_for [@chatroom, Message.new], html: { class: "form-inline" } do |f| %>
+
+ <%= f.input :body, label: false,autofocus: true, class: "form-control" %>
+ <%= f.button :submit,"Send" %>
+ <%end%>
+</div>
