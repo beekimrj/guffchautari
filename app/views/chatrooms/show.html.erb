@@ -1,7 +1,8 @@
 <p><h4> <%= @chatroom.name %> </h4>
  id: <%= @chatroom.id%>
 </p>
-
+<div class="row">
+<div class="col-sm-10">
 <div data-behavior="messages" data-chatroom-id="<%= @chatroom.id%>">
 	<% @messages.each do |message| %>
 		<%= render message %>
@@ -11,3 +12,15 @@
  <%= f.input :body, label: false,autofocus: true, class: "form-control" %>
  <%= f.button :submit,"Send" %>
  <%end%>
+</div>
+<div class="col-sm-2">
+	<% if current_user.id == @chatroom_creator_id %>
+		password: <%= @chatroom.password %>
+		<%end%>
+		<h4>Chatroom members</h4>
+		<ul>
+		<% @members.each do|member| %>
+		<li><%= member.username %></li>
+		<%end%>
+	</ul>
+</div>
