@@ -2,12 +2,11 @@
  id: <%= @chatroom.id%>
 </p>
 
-<div class="message-container">
-	<% @chatroom.messages.each do |message| %>
+<div data-behaviour="messages">
+	<% @messages.each do |message| %>
 		<div class="message-item"><strong><%= message.user.username %>:</strong> <%= message.body %>
 	<%end %>
  <%= simple_form_for [@chatroom, Message.new], html: { class: "form-inline" } do |f| %>
-
  <%= f.input :body, label: false,autofocus: true, class: "form-control" %>
  <%= f.button :submit,"Send" %>
  <%end%>

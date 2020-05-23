@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-  get 'messages/create'
 	resources :chatrooms do
 		resource :chatroom_users
 		resources :messages

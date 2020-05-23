@@ -1,14 +1,18 @@
-class MessagesController < ApplicationController
-  
+ class MessagesController < ApplicationController
+ # skip_before_action :verify_authenticity_token, :only => :create
   before_action :authenticate_user!
   before_action :set_chatroom
 
   def create
   	message = @chatroom.messages.new(message_params)
   	message.user = current_user
-
   	message.save 
-  	redirect_to @chatroom
+
+    redirect_to @chatroom
+  # respond_to do |format|
+  #   format.js
+  # end
+
   end
 
   private
