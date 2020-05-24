@@ -17,6 +17,15 @@
       <div class="row">
         <div class="col-sm-2">
           <% if user_signed_in? %>
+          <h5> Join Chatroom </h5>
+          <div>
+            
+            <%= simple_form_for @chatroom,:url => join_chatroom_path, method: :get do |f| %>
+              <%= f.input :id, label: "Chatroom id", autofill: false %>
+              <%= f.input :password, as: :string,:input_html => { :value => ""} %>
+              <%= f.button :submit,"Join" %>
+            <% end %>
+        </div>
             <h5> Chatrooms </h5>
             <ul>
               <% current_user.chatrooms.each do |chatroom| %>

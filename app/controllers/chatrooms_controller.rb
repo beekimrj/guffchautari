@@ -12,6 +12,23 @@ class ChatroomsController < ApplicationController
   	@chatroom = Chatroom.new;
   end
 
+  def join
+  	chatroom_id = chatroom_params[:id]
+  	password = chatroom_params[:password]
+  	@chatroom = Chatroom.where(id: chatroom_id).first
+  	if @chatroom.present?
+  		if @chatroom.password == password || @chatroom.user_id == current_user.id
+    		ChatroomUser.where(chatroom_id: @chatroom.id, user_id: current_user.id).first_or_create
+  			flash.notice ="Welcome to #{@chatroom.name}"
+  			# byebug
+  			# redirect_to chatrooms_path(@chatroom) and return
+  			 redirect_to chatroom_path(@chatroom) and return
+  		end
+  	end
+  		flash.alert = "Chatroom or password incorrect"
+  		redirect_to chatrooms_path
+  end
+
   def create
   	@chatroom = Chatroom.new(chatroom_params)
   	@chatroom['user_id'] = current_user.id
@@ -68,7 +85,7 @@ class ChatroomsController < ApplicationController
 	private
 
 	def chatroom_params
-	params.require(:chatroom).permit(:name, :password, :user_id)
+	params.require(:chatroom).permit(:name, :password, :user_id, :id)
 	end
   			
  
