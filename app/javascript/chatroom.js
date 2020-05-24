@@ -40,17 +40,19 @@ function changePassword(){
 	let chatroom_id = this.getAttribute("data-chatroom-id");
 	let password_container = $(`#chatroom-${chatroom_id}`);
 	let password = password_container.val();
+	let password_change_status_notifier = $(`#password-change-status-${chatroom_id}`)
 	// console.log(password)
 	$.ajax({
       url: '/change_chatroom_password',
       type: 'POST',
       data: {chatroom_id: chatroom_id, password: password},
       success: function(res){
+      	password_change_status_notifier.text("Successfully Changed").css("color","green").fadeOut(3000);
         password_container.val(res.password)
       },
       error: function(er){
-       password_container.val(er.responseJSON.password)
-
+      password_change_status_notifier.text("unsuccessfull").css("color","red").fadeOut(3000);;
+      password_container.val(er.responseJSON.password)
       }
     });
 }
