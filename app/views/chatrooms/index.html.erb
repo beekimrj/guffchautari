@@ -1,8 +1,49 @@
-<% @chatrooms.each do |chatroom| %>
-	<div class="item"> <%= chatroom.name %>
-			<%= link_to("Show", chatroom_path(chatroom)) %>
-			<%= link_to("Delete", chatroom_path(chatroom),method: :delete, data: {confirm: "Are you sure?"}, :class => "btn btn-danger  ") %> 	</div>
-		 <%= link_to "Join", chatroom_chatroom_users_path(chatroom) , method: :post %>
-		 <%= link_to "Leave", chatroom_chatroom_users_path(chatroom) , method: :delete %>
-		<%end %>
-<%= render partial: 'chatroom_form' %>
+
+<div class="row">
+	<div class ="col-sm-5">
+		<h5> Create Chatroom </h5>
+		<%= render partial: 'chatroom_form' %>
+	</div>
+	<div class="col-sm-2"></div>
+	<div class ="col-sm-5">
+		<h5> Join Chatroom </h5>
+		<div>
+		  <%= simple_form_for @chatroom ,:url => join_chatroom_path, method: :post do |f| %>
+		    <%= f.input :id, label: "Chatroom id", autofill: false %>
+		    <%= f.input :password, as: :string,:input_html => { :value => ""} %>
+		    <%= f.button :submit,"Join",class: "btn btn-primary" %>
+		  <% end %>
+		</div>
+	</div>
+</div>
+<br/>
+<h4> All Chatrooms </h4>
+<div class="row">
+	<div class ="col-sm-5">
+		<h5>Created Chatroom </h5>
+		<table>
+			<% @owned_chatrooms.each do |chatroom| %>
+				<tr>
+					<td><%= chatroom.name %></td>
+					<td><%= link_to "Show",chatroom, class: "btn btn-primary"  %></td>
+					<td><%= link_to("Delete", chatroom_path(chatroom),method: :delete, data: {confirm: "Are you sure?"}, :class => "btn btn-danger  ") %> 	</td>
+				</tr>
+			<%end %>
+		</table>
+	</div>
+	<div class="col-sm-2"></div>
+	<div class ="col-sm-5">
+		<h5> Joined Chatrooms </h5>
+		<table>
+			<% @chatrooms.each do |chatroom| %>
+				<% if chatroom.chatroom.user_id != current_user.id %>
+					<tr>
+						<td><%= chatroom.chatroom.name %></td>
+						<td><%= link_to "Join",chatroom.chatroom, class: "btn btn-primary" %></td>
+						<td><%= link_to "Leave", chatroom_chatroom_users_path(chatroom.chatroom) , method: :delete, data: {confirm: "Are you sure?"} , class: "btn btn-danger"%></td>
+					</tr>
+				<%end %>
+			<%end %>
+		</table>
+	</div>
+</div>

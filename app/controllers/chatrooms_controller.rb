@@ -1,15 +1,11 @@
 class ChatroomsController < ApplicationController
 
-	before_action :authenticate_user!, except: [:index,:show]
+	before_action :authenticate_user!
 
   def index
-		@chatrooms = Chatroom.all;
-		# @user=current_user;
+  	@chatrooms = ChatroomUser.where(user_id:current_user.id)
+		@owned_chatrooms = Chatroom.where(user_id: current_user.id)
 		@chatroom = Chatroom.new;
-  end
-
-  def new
-  	@chatroom = Chatroom.new;
   end
 
   def join
@@ -42,10 +38,16 @@ class ChatroomsController < ApplicationController
   end
 
 	def show
-		@chatroom = Chatroom.find(params[:id])
-		@messages=@chatroom.messages.order(created_at: :desc).limit(100).reverse
-		@members = @chatroom.users
-		@chatroom_creator_id=@chatroom.user_id
+		@chatroom = Chatroom.where(id: params[:id])
+		if @chatroom.present?
+			@chatroom=@chatroom.first
+			@messages=@chatroom.messages.order(created_at: :desc).limit(100).reverse
+			@members = @chatroom.users
+			@chatroom_creator_id=@chatroom.user_id
+		else
+			flash.alert = "Chatroom might have been delete by your friend"
+			redirect_to chatrooms_path
+		end
 	end
 
 
