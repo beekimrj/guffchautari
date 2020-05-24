@@ -14,6 +14,11 @@ const buttons = document.querySelectorAll("[data-behavior='change-password-butto
 buttons.forEach(function(currentBtn){
   currentBtn.addEventListener('click',changePassword);
 });
+
+const invite_buttons = document.querySelectorAll("[data-behavior='invite-chatroom-button']");
+invite_buttons.forEach(function(currentBtn){
+  currentBtn.addEventListener('click',generateInvitationLink);
+});
 //following code is moved to channels/chatrooms_channels.js because App keyword was not working
 	// $("#new_message").submit(function(e){
 	// 	e.preventDefault();
@@ -43,4 +48,23 @@ function changePassword(){
 
       }
     });
+}
+
+function generateInvitationLink(){
+	let chatroom_id = this.getAttribute("data-chatroom-id");
+	let password_container = $(`#chatroom-${chatroom_id}`);
+	let password = password_container.val();
+	let invitation_container = $(`#invite-chatroom-${chatroom_id}`);
+	let base_url = window.location.origin
+
+	let chatroom = {};
+	chatroom['id'] = chatroom_id;
+	chatroom['password'] = password;
+	let params={};
+	params['chatroom'] = chatroom;
+	let invitation_link = $.param(params);
+
+	invitation_link = `${base_url}/join_chatroom?${invitation_link}`;
+
+	invitation_container.val(invitation_link)
 }

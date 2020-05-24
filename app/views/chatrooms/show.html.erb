@@ -2,7 +2,7 @@
  id: <%= @chatroom.id%>
 </p>
 <div class="row">
-<div class="col-sm-10">
+<div class="col-sm-9">
 <div data-behavior="messages" data-chatroom-id="<%= @chatroom.id%>">
 	<% @messages.each do |message| %>
 		<%= render message %>
@@ -13,11 +13,14 @@
  <%= f.button :submit,"Send" %>
  <%end%>
 </div>
-<div class="col-sm-2">
+<div class="col-sm-3">
 	<% if current_user.id == @chatroom_creator_id %>
 		password: 
 		<input type="text" value="<%= @chatroom.password %>" id="chatroom-<%=@chatroom.id%>"  class="form-control"><br/>
 		<button class="btn btn-primary" data-behavior="change-password-button" data-chatroom-id="<%=@chatroom.id%>">Change</button><br/><br/>
+		<textarea value="" id="invite-chatroom-<%=@chatroom.id%>" readonly class="form-control" rows="2" cols="50"></textarea>
+		<br/>
+		<button class="btn btn-primary" data-behavior="invite-chatroom-button" data-chatroom-id="<%=@chatroom.id%>">Invite Link</button><br/><br/>
 		<%end%>
 		<h4>Chatroom members</h4>
 		<ul>

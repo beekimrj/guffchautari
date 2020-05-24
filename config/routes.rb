@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
   post "join_chatroom" => "chatrooms#join"
+  get "join_chatroom/" => "chatrooms#join"
+
 
 	resources :chatrooms do
 		resource :chatroom_users
