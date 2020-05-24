@@ -20,7 +20,8 @@
 		<button class="btn btn-primary" data-behavior="change-password-button" data-chatroom-id="<%=@chatroom.id%>">Change</button><br/><br/>
 		<textarea value="" id="invite-chatroom-<%=@chatroom.id%>" readonly class="form-control" rows="2" cols="50"></textarea>
 		<br/>
-		<button class="btn btn-primary" data-behavior="invite-chatroom-button" data-chatroom-id="<%=@chatroom.id%>">Invite Link</button><br/><br/>
+		<button class="btn btn-primary" data-behavior="invite-chatroom-button" data-chatroom-id="<%=@chatroom.id%>">Invite Link</button>
+		<button class="btn btn-secondary" id="copy-invite-chatroom-<%=@chatroom.id%>" disabled data-behavior="copy-invite-chatroom-button" data-chatroom-id="<%=@chatroom.id%>">copy</button><br/><br/>
 		<%end%>
 		<h4>Chatroom members</h4>
 		<ul>

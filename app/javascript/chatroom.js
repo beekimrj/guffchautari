@@ -19,6 +19,11 @@ const invite_buttons = document.querySelectorAll("[data-behavior='invite-chatroo
 invite_buttons.forEach(function(currentBtn){
   currentBtn.addEventListener('click',generateInvitationLink);
 });
+
+const copy_invite_buttons = document.querySelectorAll("[data-behavior='copy-invite-chatroom-button']");
+copy_invite_buttons.forEach(function(currentBtn){
+  currentBtn.addEventListener('click',copyToClipboard);
+});
 //following code is moved to channels/chatrooms_channels.js because App keyword was not working
 	// $("#new_message").submit(function(e){
 	// 	e.preventDefault();
@@ -67,4 +72,15 @@ function generateInvitationLink(){
 	invitation_link = `${base_url}/join_chatroom?${invitation_link}`;
 
 	invitation_container.val(invitation_link)
+	//enable copy button
+	$(`#copy-invite-chatroom-${chatroom_id}`).removeAttr( "disabled" )
+}
+
+function copyToClipboard(){
+	let chatroom_id = this.getAttribute("data-chatroom-id");
+	let copyText = document.getElementById(`invite-chatroom-${chatroom_id}`);
+  copyText.select();
+  copyText.setSelectionRange(0, 99999)
+  document.execCommand("copy");
+  // alert("Copied the text: " + copyText.value);
 }
