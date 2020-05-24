@@ -32,8 +32,20 @@ class ChatroomsController < ApplicationController
 	end
 
 
-	def edit
-		@chatroom = Chatroom.find(params[:id])
+	def change_chatroom_password
+		@chatroom = Chatroom.find(params[:chatroom_id])
+		password = params[:password]
+		chatroom_creator_id = @chatroom.user_id
+		if chatroom_creator_id == current_user.id
+			if @chatroom.update(password: password)
+				render json: {password: password}
+			else
+				password = @chatroom.password
+				render json: {password: password}, status: :unprocessable_entity
+			end
+		else
+			render json: {password: password}, status: :unprocessable_entity
+		end
 	end
 
 	def destroy

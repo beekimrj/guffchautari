@@ -4,7 +4,6 @@
     <title>Guffchautari</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
@@ -13,6 +12,7 @@
     <header>
     <%= render partial: 'layouts/navbar' %>
   </header>
+<%= bootstrap_flash %>
     <div class="container" style="margin-top: 3rem;">
       <div class="row">
         <div class="col-sm-2">

@@ -15,7 +15,9 @@
 </div>
 <div class="col-sm-2">
 	<% if current_user.id == @chatroom_creator_id %>
-		password: <%= @chatroom.password %>
+		password: 
+		<input type="text" value="<%= @chatroom.password %>" id="chatroom-<%=@chatroom.id%>"  class="form-control"><br/>
+		<button class="btn btn-primary" data-behavior="change-password-button" data-chatroom-id="<%=@chatroom.id%>">Change</button><br/><br/>
 		<%end%>
 		<h4>Chatroom members</h4>
 		<ul>
