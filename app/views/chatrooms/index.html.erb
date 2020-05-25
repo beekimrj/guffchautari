@@ -9,15 +9,15 @@
 		<h5> Join Chatroom </h5>
 		<div>
 		  <%= simple_form_for @chatroom ,:url => join_chatroom_path, method: :post do |f| %>
-		    <%= f.input :id, label: "Chatroom id", autofill: false %>
+		    <%= f.input :id, label: "Chatroom id", autofill: false, required: true %>
 		    <%= f.input :password, as: :string,:input_html => { :value => ""} %>
 		    <%= f.button :submit,"Join",class: "btn btn-primary" %>
 		  <% end %>
 		</div>
 	</div>
 </div>
-<br/>
-<h4> All Chatrooms </h4>
+<br/><br/>
+<center><u><h4> All Chatrooms </h4></u></center><br>
 <div class="row">
 	<div class ="col-sm-5">
 		<h5>Created Chatroom </h5>
